@@ -1,0 +1,23 @@
+config:
+    name: testcase description
+    variables: {}
+teststeps:
+-   name: /api/private/v1/users
+    request:
+        headers:
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE1ODY5MDQ5MTIsImV4cCI6MTU4Njk5MTMxMn0.VYFiCdx7XypVvPTgvbkBO4cONlGuUwhXLf5YyjPqO8A
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36
+        method: GET
+        params:
+            pagenum: '2'
+            pagesize: '2'
+            query: ''
+        url: http://192.168.0.101:8888/api/private/v1/users
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json; charset=utf-8

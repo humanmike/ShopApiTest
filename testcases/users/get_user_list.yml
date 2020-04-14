@@ -1,0 +1,22 @@
+config:
+    name: "get user list testcase"
+teststeps:
+    # 登陆api
+-   name: shop login api
+    api: api/login_api.yml
+    # 导出获取响应的tokenId
+    export:
+      - tokenId
+    # 获取管理员列表api
+-   name: get user list api
+    api: api/get_user_list_api.yml
+    # 导入需要的tokenId
+    variables:
+        -tokenId: ${tokenId}
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - content.meta.msg
+        - 获取管理员列表成功

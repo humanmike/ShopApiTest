@@ -1,0 +1,27 @@
+name: get user list api
+variables:
+    query: ''
+    pagenum: 1
+    pagesize: 5
+base_url: ${ENV(test_url)}
+export:
+    # 导出列表数据
+    -userList
+request:
+    url: /users
+    method: GET
+    params:
+        pagenum: ${pagenum}
+        pagesize: ${pagesize}
+        query: ${query}
+    headers:
+      Authorization:  ${tokenId}
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+        (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36
+extract:
+    # 获取管理员列表
+    userList: content.data.users
+validate:
+    - eq: ["status_code", 200]
+
+

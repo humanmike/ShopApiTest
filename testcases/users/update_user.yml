@@ -1,0 +1,34 @@
+config:
+    name: "find user testcase"
+    variables:
+        username: ${ENV(USERNAME)}
+        password: ${ENV(PASSWORD)}
+    base_url: ${ENV(test_url)}
+teststeps:
+    # 登陆api
+-   name: shop login api
+    api: api/login_api.yml
+    export:
+      - tokenId
+-   name: /api/private/v1/users/524
+    request:
+        headers:
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE1ODY4Njg4NDcsImV4cCI6MTU4Njk1NTI0N30.yyBFclg1BtMiO6FtsWVd5OuyA1bkW_v79CRVV-tZZQQ
+            Content-Type: application/json;charset=UTF-8
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36
+        json:
+            email: aa@163.com
+            id: 524
+            mobile: '13777777777'
+            rid: -1
+            username: test2
+        method: PUT
+        url: http://192.168.0.109:8888/api/private/v1/users/524
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json; charset=utf-8

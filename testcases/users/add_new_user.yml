@@ -1,0 +1,42 @@
+config:
+    name: "add new user testcase"
+    variables:
+        username: ${ENV(USERNAME)}
+        password: ${ENV(PASSWORD)}
+    base_url: ${ENV(test_url)}
+
+teststeps:
+    # 登陆api
+-   name: shop login api
+    api: api/login_api.yml
+    export:
+      - tokenId
+-   name: /api/private/v1/users
+    variables:
+      # 导出获取的用户id数据
+      - tokenId: ${tokenId}
+    request:
+        headers:
+            Authorization: ${tokenId}
+            Content-Type: application/json;charset=UTF-8
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36
+        # 把所有测试数据参数化,供测试集调用
+        json:
+            email: ${email}
+            mobile:  ${mobile}
+            password:  ${password}
+            username:  ${username}
+        method: POST
+        url: /users
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json; charset=utf-8
+    -   eq:
+        - content.meta.msg
+        - ${verify}
+

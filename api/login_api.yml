@@ -1,0 +1,20 @@
+name: shop login api
+variables:
+    var1: value1
+    var2: value2
+base_url: ${ENV(test_url)}
+export:
+    - tokenId
+request:
+    url: /login
+    method: POST
+    json:
+        username: ${ENV(username)}
+        password: ${ENV(password)}
+    headers:
+        Content-Type: "application/json;charset=UTF-8"
+extract:
+    tokenId: content.data.token
+validate:
+    - eq: ["status_code", 200]
+

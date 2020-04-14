@@ -1,0 +1,12 @@
+
+config:
+    name: "users testsuite"
+    base_url: ${ENV(base_url)}
+
+testcases:
+-
+    name: add users
+    parameters:
+        # 依次写入debugtalk函数中的定义的字典中的key
+        email-mobile-password-username-verify: ${add_user_data()}
+    testcase: testcases/users/add_new_user.yml

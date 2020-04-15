@@ -10,3 +10,15 @@ testcases:
         # 依次写入debugtalk函数中的定义的字典中的key
         email-mobile-password-username-verify: ${add_user_data()}
     testcase: testcases/users/add_new_user.yml
+-
+    name: add exist users
+    parameters:
+        # 依次写入debugtalk函数中的定义的字典中的key
+        email-mobile-password-username-verify: ${add_exist_user_data()}
+    testcase: testcases/users/add_new_user.yml
+-
+    name: change users
+    parameters:
+        # 依次写入debugtalk函数中的定义的字典中的key
+        email-mobile-verify: ${update_user_data()}
+    testcase: testcases/users/update_user.yml

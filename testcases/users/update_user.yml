@@ -1,8 +1,5 @@
 config:
     name: "find user testcase"
-    variables:
-        username: ${ENV(USERNAME)}
-        password: ${ENV(PASSWORD)}
     base_url: ${ENV(test_url)}
 teststeps:
     # 登陆api
@@ -16,12 +13,15 @@ teststeps:
     api: api/get_user_list_api.yml
     export:
       - userList
+      - randomUser
     # 导入需要的tokenId
     variables:
       tokenId: ${tokenId}
--   name: /api/private/v1/users/524
+-   name: /api/private/v1/users/${randomUser}
+    # 导入修改管理员需要的管理员id randomUser
     variables:
         userList: ${userList}
+        randomUser: ${randomUser}
     request:
         headers:
             Authorization: ${tokenId}
@@ -29,13 +29,11 @@ teststeps:
             User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
                 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36
         json:
-            email: aa@163.com
-            id: ${get_random_users(userList)}
-            mobile: '13777777777'
-            rid: -1
-            username: test2
+            email: ${email}
+            id: ${randomUser}
+            mobile: ${mobile}
         method: PUT
-        url: /users/524
+        url: /users/${randomUser}
     validate:
     -   eq:
         - status_code
@@ -43,3 +41,6 @@ teststeps:
     -   eq:
         - headers.Content-Type
         - application/json; charset=utf-8
+    -   eq:
+        - content.meta.msg
+        - ${verify}

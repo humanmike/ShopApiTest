@@ -2,7 +2,7 @@ name: get user list api
 variables:
     query: ''
     pagenum: 1
-    pagesize: 5
+    pagesize: 2
 base_url: ${ENV(test_url)}
 export:
     # 导出列表数据
@@ -20,7 +20,9 @@ request:
         (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36
 extract:
     # 获取管理员列表
-    userList: content.data.users
+    userList: content.data.users.-1.id
+    # 随机获取管理员信息修改
+    randomUser: content.data.users.-1.id
 validate:
     - eq: ["status_code", 200]
 

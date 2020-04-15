@@ -4,23 +4,29 @@ import time
 def sleep(n_secs):
     time.sleep(n_secs)
 
-# 随机获取管理员信息
-def get_random_users(users):
-    return users
-    # n = random.randint(1, len(users))
-    # if (users[n].id == 500):
-    #     return get_random_users(users)
-    # else:
-    #     return users[n]
+# 生成编辑管理员表单测试数据
+def update_user_data():
+    data_list = []
+    for i in range(10):
+        email = 'mail{}@163.com'.format(i)
+        mobile = '13111111110'
+        data_obj = {
+            'email': email,
+            'mobile': mobile,
+            'verify': '更新成功'
+        }
+        data_list.append(data_obj)
+    return data_list
 
-# 生成添加表单测试数据
+
+# 生成添加管理员表单测试数据
 def add_user_data():
     data_list = []
     for i in range(10):
         email = 'mail@163.com'
         mobile = '1321111111'.format(i)
         password = '123'
-        username = 'ceshi{}{}'.format(i,i)
+        username = 'lala{}{}'.format(i,i)
         data_obj = {
             'email': email,
             'mobile': mobile,
@@ -34,6 +40,20 @@ def add_user_data():
 
 
 
-def get_token(token):
-    return token
-
+# 生成已存在添加管理员表单测试数据
+def add_exist_user_data():
+    data_list = []
+    for i in range(10):
+        email = 'mail@163.com'
+        mobile = '1321111111'.format(i)
+        password = '123'
+        username = 'jiajia{}{}'.format(i, i)
+        data_obj = {
+            'email': email,
+            'mobile': mobile,
+            'password': password,
+            'username': username,
+            'verify': '用户名已存在'
+        }
+        data_list.append(data_obj)
+    return data_list
